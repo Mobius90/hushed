@@ -80,8 +80,8 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       return reply.status(400).send({ message: 'Invalid server query' });
 
     try {
-      const serverUrl = await viewAsian.fetchEpisodeUrl(episodeId, server);
-      reply.status(200).send({ serverUrl });
+      const res = await viewAsian.fetchEpisodeUrl(episodeId, server);
+      reply.status(200).send(res);
     } catch (err) {
       reply
         .status(500)

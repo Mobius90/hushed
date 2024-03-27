@@ -81,7 +81,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
 
     try {
       const res = await viewAsian.fetchEpisodeUrl(episodeId, server);
-      reply.status(200).send(res);
+      reply.status(200).send({res});
     } catch (err) {
       reply
         .status(500)

@@ -68,6 +68,28 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         .send({ message: 'Something went wrong. Please try again later.' });
     }
   });
+
+  fastify.get('/watch-url', async (request: FastifyRequest, reply: FastifyReply) => {
+    const episodeId = (request.query as { episodeId: string }).episodeId;
+    const server = (request.query as { server: StreamingServers }).server;
+
+    if (typeof episodeId === 'undefined')
+      return reply.status(400).send({ message: 'episodeId is required' });
+
+    if (server && !Object.values(StreamingServers).includes(server))
+      return reply.status(400).send({ message: 'Invalid server query' });
+
+    try {
+      const serverUrl = await viewAsian.fetchEpisodeUrl(episodeId, server);
+      reply.status(200).send({ serverUrl });
+    } catch (err) {
+      reply
+        .status(500)
+        .send({ message: 'Something went wrong. Please try again later.' });
+    }
+  });
 };
+
+
 
 export default routes;

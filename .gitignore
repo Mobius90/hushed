@@ -6,3 +6,4 @@ yarn.lock
 test.ts
 package-lock.json
 yarn.lock
+package.json
